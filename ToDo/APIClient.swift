@@ -14,10 +14,10 @@ class APIClient {
         case DataEmptyError
     }
     
-    lazy var session: ToDoURLSession = URLSession.shared
+    lazy var session: ToDoURLSession = URLSession.shared    //1 with URLSession and 4. change to ToDoURLSession
     var keychainManager: KeychainAccessible?
     
-    func loginUserWithName(username: String, password: String, completion: @escaping (Error?) -> Void) {
+    func loginUserWithName(username: String, password: String, completion: @escaping (Error?) -> Void) {    //5
         
         guard let expectedUsername = username.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
             fatalError()
@@ -26,6 +26,8 @@ class APIClient {
             fatalError()
         }
 
+        //6 add the guard statement and 7 add the URL
+        //8 add the parameters
         guard let url = URL(string: "https://awesometodos.com/login?username=\(expectedUsername)&password=\(expectedPassword)") else
         {
             fatalError()
@@ -55,10 +57,10 @@ class APIClient {
     }
 }
 
-protocol ToDoURLSession {
+protocol ToDoURLSession {   //2
     func dataTask(with url: URL, completionHandler: @escaping(Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask
 }
 
-extension URLSession : ToDoURLSession {
+extension URLSession : ToDoURLSession { //3
     
 }
